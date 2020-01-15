@@ -3,7 +3,9 @@ package com.yalantis.ucrop;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PointF;
 import android.graphics.PorterDuff;
+import android.graphics.RectF;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -234,6 +236,7 @@ public class UCropActivity extends AppCompatActivity {
         mGestureCropImageView.setMaxScaleMultiplier(intent.getFloatExtra(UCrop.Options.EXTRA_MAX_SCALE_MULTIPLIER, CropImageView.DEFAULT_MAX_SCALE_MULTIPLIER));
         mGestureCropImageView.setImageToWrapCropBoundsAnimDuration(intent.getIntExtra(UCrop.Options.EXTRA_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION, CropImageView.DEFAULT_IMAGE_TO_CROP_BOUNDS_ANIM_DURATION));
 
+
         // Overlay view options
         mOverlayView.setFreestyleCropEnabled(intent.getBooleanExtra(UCrop.Options.EXTRA_FREE_STYLE_CROP, OverlayView.DEFAULT_FREESTYLE_CROP_MODE != OverlayView.FREESTYLE_CROP_MODE_DISABLE));
 
@@ -268,6 +271,11 @@ public class UCropActivity extends AppCompatActivity {
         } else {
             mGestureCropImageView.setTargetAspectRatio(CropImageView.SOURCE_IMAGE_ASPECT_RATIO);
         }
+        PointF initialTranslation = intent.getParcelableExtra(UCrop.Options.EXTRA_INITIAL_TRANSLATION);
+        if (initialTranslation != null) {
+            mGestureCropImageView.setInitialTranslation(initialTranslation);
+        }
+        mGestureCropImageView.setInitialScale(intent.getFloatExtra(UCrop.Options.EXTRA_INITIAL_SCALE, 1.0f));
 
         // Result bitmap max size options
         int maxSizeX = intent.getIntExtra(UCrop.EXTRA_MAX_SIZE_X, 0);
@@ -277,6 +285,7 @@ public class UCropActivity extends AppCompatActivity {
             mGestureCropImageView.setMaxResultImageSizeX(maxSizeX);
             mGestureCropImageView.setMaxResultImageSizeY(maxSizeY);
         }
+
     }
 
     private void setupViews(@NonNull Intent intent) {

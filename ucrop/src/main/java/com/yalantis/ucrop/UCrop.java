@@ -6,6 +6,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PointF;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -299,6 +301,9 @@ public class UCrop {
         public static final String EXTRA_ASPECT_RATIO_SELECTED_BY_DEFAULT = EXTRA_PREFIX + ".AspectRatioSelectedByDefault";
         public static final String EXTRA_ASPECT_RATIO_OPTIONS = EXTRA_PREFIX + ".AspectRatioOptions";
 
+        public static final String EXTRA_INITIAL_SCALE = EXTRA_PREFIX + ".InitialScale";
+        public static final String EXTRA_INITIAL_TRANSLATION = EXTRA_PREFIX + ".InitialTranslation";
+
         public static final String EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR = EXTRA_PREFIX + ".UcropRootViewBackgroundColor";
 
 
@@ -508,6 +513,22 @@ public class UCrop {
          */
         public void setFreeStyleCropEnabled(boolean enabled) {
             mOptionBundle.putBoolean(EXTRA_FREE_STYLE_CROP, enabled);
+        }
+
+        /**
+         * @param initialScale - initial scale to be applied to the image
+         */
+        public void setInitialScale(float initialScale) {
+            mOptionBundle.putFloat(EXTRA_INITIAL_SCALE, initialScale);
+        }
+
+        /**
+         * @param initialTranslation - initial translation where the max value with either plus
+         *                          or minus sign is equal to half of total image dimension in
+         *                          given axis
+         */
+        public void setInitialTranslation(PointF initialTranslation) {
+            mOptionBundle.putParcelable(EXTRA_INITIAL_TRANSLATION, initialTranslation);
         }
 
         /**
